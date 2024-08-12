@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 
 export const CardTop = styled.div`
   position: relative;
+  height: 217px;
 `
 
 export const CardBottom = styled.div`
