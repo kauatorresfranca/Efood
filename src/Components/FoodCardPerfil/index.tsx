@@ -1,18 +1,67 @@
-import pizza from '../../assets/images/pizza.png'
 import * as S from './styles'
 
-const FoodCardPerfil = () => (
-  <>
-    <S.Card>
-      <img src={pizza} alt="foto da comida" />
-      <S.Title>Pizza Marguerita</S.Title>
-      <S.Description>
-        A clássica Marguerita: molho de tomate suculento, mussarela derretida,
-        manjericão fresco e um toque de azeite. Sabor e simplicidade!
-      </S.Description>
-      <S.Link href="">Adicionar ao carrinho</S.Link>
-    </S.Card>
-  </>
-)
+import close from '../../assets/images/close.png'
+import { useState } from 'react'
+
+type Props = {
+  foto: string
+  preco: string
+  id: number
+  titulo: string
+  descricao: string
+  porcao: string
+}
+
+type ModalState = {
+  isvisible: boolean
+}
+
+const FoodCardPerfil = ({ foto, titulo, descricao, porcao, preco }: Props) => {
+  const [modal, setModal] = useState<ModalState>({
+    isvisible: false
+  })
+  const CloseModal = () => {
+    setModal({
+      isvisible: false
+    })
+  }
+
+  return (
+    <>
+      <S.Card>
+        <img src={foto} alt="foto da comida" />
+        <S.Title>{titulo}</S.Title>
+        <S.Description>{descricao}</S.Description>
+        <S.Link onClick={() => setModal({ isvisible: true })}>
+          Mais detalhes
+        </S.Link>
+      </S.Card>
+      <S.Modal className={modal.isvisible ? 'visible' : ''}>
+        <div className="container">
+          <img src={foto} alt="foto da comida" />
+          <S.Content>
+            <S.TitleModal>{titulo}</S.TitleModal>
+            <S.DescriptionModal>
+              {descricao} <br /> <br />
+              serve: {porcao}
+            </S.DescriptionModal>
+            <S.LinkModal href="">
+              Adicionar ao carrinho - R$ {preco}0
+            </S.LinkModal>
+          </S.Content>
+          <div>
+            <S.Close src={close} alt="sair" onClick={() => CloseModal()} />
+          </div>
+        </div>
+        <div
+          onClick={() => {
+            CloseModal()
+          }}
+          className="overlay"
+        ></div>
+      </S.Modal>
+    </>
+  )
+}
 
 export default FoodCardPerfil

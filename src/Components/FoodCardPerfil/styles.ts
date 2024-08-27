@@ -10,6 +10,11 @@ export const Card = styled.div`
   align-items: center;
   padding-top: 8px;
   position: relative;
+
+  img {
+    height: 167px;
+    widht: 304px;
+  }
 `
 
 export const Link = styled.a`
@@ -39,4 +44,90 @@ export const Description = styled.p`
   position: absolute;
   left: 8px;
   top: 210px;
+`
+
+export const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: none;
+  justify-content: center;
+  align-items: center;
+
+  &.visible {
+    display: flex;
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.73);
+    z-index: -1;
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+    z-index: 1;
+    background-color: ${cores.rose};
+    max-width: 1024px;
+    width: 100%;
+    height: 344px;
+
+    > img {
+      width: 280px;
+      height: 280px;
+      margin: 32px 24px 32px 32px;
+    }
+  }
+`
+
+export const Close = styled.img`
+  width: 16px;
+  height: 16px;
+  margin-bottom: 310px;
+  margin-right: 8px;
+
+  &:hover {
+    cursor: pointer;
+  }
+`
+
+export const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`
+
+export const TitleModal = styled.h3`
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 21px;
+  color: ${cores.branco};
+`
+
+export const DescriptionModal = styled.p`
+  font-family: roboto;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: ${cores.branco};
+  margin-top: 16px;
+`
+
+export const LinkModal = styled.a`
+  background-color: ${cores.branco};
+  color: ${cores.rose};
+  padding: 4px 7px;
+  text-decoration: none;
+  width: 220px;
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: 20px;
 `

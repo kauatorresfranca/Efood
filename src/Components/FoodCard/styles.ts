@@ -6,6 +6,11 @@ import { Link } from 'react-router-dom'
 export const CardTop = styled.div`
   position: relative;
   height: 217px;
+
+  img {
+    height: 217px;
+    width: 100%;
+  }
 `
 
 export const CardBottom = styled.div`

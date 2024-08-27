@@ -15,9 +15,7 @@ const FoodCard = ({ image, title, description, review, infos, url }: Props) => (
     <S.CardTop>
       <img src={image} alt="imagem da comida" />
       <S.Infos>
-        {infos.map((info) => (
-          <S.Tag key={info}>{info}</S.Tag>
-        ))}
+        <S.Tag>{infos}</S.Tag>
       </S.Infos>
     </S.CardTop>
     <S.CardBottom>
