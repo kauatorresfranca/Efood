@@ -15,7 +15,7 @@ export const CardTop = styled.div`
 
 export const CardBottom = styled.div`
   width: 472px;
-  height: 181px;
+  height: 200px;
   border: 1px solid ${cores.rose};
   padding-left: 8px;
 `

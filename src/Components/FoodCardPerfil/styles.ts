@@ -13,11 +13,12 @@ export const Card = styled.div`
 
   img {
     height: 167px;
-    widht: 304px;
+    width: 304px;
   }
 `
 
 export const Link = styled.a`
+  width: 304px;
   text-decoration: none;
   padding: 4px 72px;
   background-color: ${cores.amarelo};
@@ -25,6 +26,7 @@ export const Link = styled.a`
   position: absolute;
   left: 8px;
   top: 296px;
+  text-align: center;
 `
 
 export const Title = styled.h3`

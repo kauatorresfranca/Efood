@@ -26,12 +26,19 @@ const FoodCardPerfil = ({ foto, titulo, descricao, porcao, preco }: Props) => {
     })
   }
 
+  const getDescricao = (descricao: string) => {
+    if (descricao.length > 130) {
+      return descricao.slice(0, 130) + '...'
+    }
+    return descricao
+  }
+
   return (
     <>
       <S.Card>
         <img src={foto} alt="foto da comida" />
         <S.Title>{titulo}</S.Title>
-        <S.Description>{descricao}</S.Description>
+        <S.Description>{getDescricao(descricao)}</S.Description>
         <S.Link onClick={() => setModal({ isvisible: true })}>
           Mais detalhes
         </S.Link>
