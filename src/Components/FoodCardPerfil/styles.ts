@@ -27,6 +27,7 @@ export const Link = styled.a`
   left: 8px;
   top: 296px;
   text-align: center;
+  cursor: pointer;
 `
 
 export const Title = styled.h3`
@@ -132,4 +133,5 @@ export const LinkModal = styled.a`
   font-size: 14px;
   font-weight: 700;
   margin-top: 20px;
+  cursor: pointer;
 `

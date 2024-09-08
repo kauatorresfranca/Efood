@@ -1,16 +1,16 @@
 import FoodCardPerfil from '../FoodCardPerfil'
 import { Container } from './styles'
-import { Cardapio } from '../../pages/Home'
+import { Restaurante } from '../../pages/Home'
 
 type Props = {
-  restaurante: Cardapio[]
+  restaurante: Restaurante
 }
 
 const FoodCardListPerfil = ({ restaurante }: Props) => (
   <>
     <div className="container">
       <Container>
-        {restaurante.map((restau) => (
+        {restaurante.cardapio.map((restau) => (
           <div key={restau.id}>
             <FoodCardPerfil
               descricao={restau.descricao}

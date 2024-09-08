@@ -1,7 +1,13 @@
 import * as S from './styles'
 
+import { Cardapio } from '../../pages/Home'
+
+import { useDispatch, useSelector } from 'react-redux'
 import close from '../../assets/images/close.png'
 import { useState } from 'react'
+import { add, open } from '../../store/reducers/cart'
+import { useGetRestaurantQuery } from '../../services/api'
+import { useParams } from 'react-router-dom'
 
 type Props = {
   foto: string
@@ -17,6 +23,9 @@ type ModalState = {
 }
 
 const FoodCardPerfil = ({ foto, titulo, descricao, porcao, preco }: Props) => {
+  const { id } = useParams()
+  const { data: cardapio } = useGetRestaurantQuery(id!)
+
   const [modal, setModal] = useState<ModalState>({
     isvisible: false
   })
@@ -33,6 +42,12 @@ const FoodCardPerfil = ({ foto, titulo, descricao, porcao, preco }: Props) => {
     return descricao
   }
 
+  const dispatch = useDispatch()
+
+  const addToCart = () => {
+    dispatch(add(cardapio))
+    dispatch(open())
+  }
   return (
     <>
       <S.Card>
@@ -52,7 +67,7 @@ const FoodCardPerfil = ({ foto, titulo, descricao, porcao, preco }: Props) => {
               {descricao} <br /> <br />
               serve: {porcao}
             </S.DescriptionModal>
-            <S.LinkModal href="">
+            <S.LinkModal onClick={addToCart}>
               Adicionar ao carrinho - R$ {preco}0
             </S.LinkModal>
           </S.Content>
