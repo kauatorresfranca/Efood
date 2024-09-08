@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { cores } from '../../styles'
+import { breakpoints, cores } from '../../styles'
 import { Link } from 'react-router-dom'
 
 export const Container = styled.div`
@@ -16,6 +16,11 @@ export const Container = styled.div`
 
     img {
       margin-left: 80px;
+
+      @media (max-width: ${breakpoints.desktop}) {
+        width: 100px;
+        height: 45px;
+      }
     }
   }
 `

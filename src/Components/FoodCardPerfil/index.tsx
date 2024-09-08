@@ -1,8 +1,6 @@
 import * as S from './styles'
 
-import { Cardapio } from '../../pages/Home'
-
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import close from '../../assets/images/close.png'
 import { useState } from 'react'
 import { add, open } from '../../store/reducers/cart'
@@ -22,13 +20,22 @@ type ModalState = {
   isvisible: boolean
 }
 
-const FoodCardPerfil = ({ foto, titulo, descricao, porcao, preco }: Props) => {
-  const { id } = useParams()
-  const { data: cardapio } = useGetRestaurantQuery(id!)
+const FoodCardPerfil = ({
+  foto,
+  titulo,
+  descricao,
+  porcao,
+  preco,
+  id
+}: Props) => {
+  const { id: restaurantId } = useParams()
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const { data: restaurant } = useGetRestaurantQuery(restaurantId!)
 
   const [modal, setModal] = useState<ModalState>({
     isvisible: false
   })
+
   const CloseModal = () => {
     setModal({
       isvisible: false
@@ -45,9 +52,18 @@ const FoodCardPerfil = ({ foto, titulo, descricao, porcao, preco }: Props) => {
   const dispatch = useDispatch()
 
   const addToCart = () => {
-    dispatch(add(cardapio))
-    dispatch(open())
+    // Converter id para número antes da comparação
+    const itemToAdd = restaurant?.cardapio.find(
+      (item) => item.id === Number(id)
+    )
+    if (itemToAdd) {
+      dispatch(add(itemToAdd)) // Use o item específico do cardápio
+      dispatch(open())
+    } else {
+      console.error('Item não encontrado no cardápio')
+    }
   }
+
   return (
     <>
       <S.Card>

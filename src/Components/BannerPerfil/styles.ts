@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { cores } from '../../styles'
+import { breakpoints, cores } from '../../styles'
 
 export const BannerContainer = styled.div`
   display: block;
@@ -23,4 +23,10 @@ export const RestaurantTitle = styled.h2`
   font-family: Roboto;
   color: ${cores.branco};
   margin-top: 150px;
+
+  @media (max-width: ${breakpoints.desktop}) {
+    font-size: 24px;
+    margin-top: 140px;
+    line-height: 34px;
+  }
 `

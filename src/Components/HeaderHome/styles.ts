@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { cores } from '../../styles'
+import { breakpoints, cores } from '../../styles'
 
 export const Container = styled.div`
   height: 384px;
@@ -32,4 +32,9 @@ export const HeaderText = styled.p`
   color: ${cores.rose};
   margin-top: 138px;
   text-align: center;
+
+  @media (max-width: ${breakpoints.tablet}) {
+    font-size: 24px;
+    margin-top: 120px;
+  }
 `

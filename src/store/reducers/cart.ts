@@ -20,7 +20,7 @@ const cartSlice = createSlice({
       if (game === undefined) {
         state.items.push(action.payload)
       } else {
-        alert('o jogo já está no carrinho')
+        alert('o prato já está no carrinho')
       }
     },
     remove: (state, action: PayloadAction<number>) => {

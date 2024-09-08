@@ -11,7 +11,7 @@ export type Props = {
 }
 
 const FoodCard = ({ image, title, description, review, infos, url }: Props) => (
-  <div>
+  <S.Card>
     <S.CardTop>
       <img src={image} alt="imagem da comida" />
       <S.Infos>
@@ -29,7 +29,7 @@ const FoodCard = ({ image, title, description, review, infos, url }: Props) => (
       <S.Description>{description}</S.Description>
       <S.Links to={url}>Saiba mais</S.Links>
     </S.CardBottom>
-  </div>
+  </S.Card>
 )
 
 export default FoodCard
