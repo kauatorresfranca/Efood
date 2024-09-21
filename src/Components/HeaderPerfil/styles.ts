@@ -15,8 +15,6 @@ export const Container = styled.div`
     justify-content: space-between;
 
     img {
-      margin-left: 80px;
-
       @media (max-width: ${breakpoints.desktop}) {
         width: 100px;
         height: 45px;
@@ -32,8 +30,34 @@ export const HeaderText = styled(Link)`
   font-weight: 900;
 `
 
-export const Text = styled.h2`
-  color: ${cores.rose};
-  font-size: 18px;
-  font-weight: 900;
+export const Text = styled.div`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+
+  h3 {
+    color: ${cores.rose};
+    font-size: 18px;
+    font-weight: 900;
+  }
+
+  @media (min-width: ${breakpoints.tablet}) {
+    img {
+      display: none;
+    }
+  }
+
+  @media (max-width: ${breakpoints.tablet}) {
+    span {
+      display: none;
+    }
+
+    img {
+      object-fit: contain;
+      height: 24px;
+      width: 14px;
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
 `

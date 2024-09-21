@@ -94,9 +94,3 @@ export const TotalPriceContent = styled.div`
     color: ${cores.amarelo};
   }
 `
-export const Text = styled.p`
-  text-align: center;
-  color: ${cores.branco};
-  font-size: 14px;
-  font-weight: 400;
-`

@@ -34,7 +34,6 @@ export const Sidebar = styled.aside`
   width: 100%;
 
   button {
-    margin-top: 16px;
     background-color: ${cores.amarelo};
     color: ${cores.rose};
     width: 344px;
@@ -42,7 +41,6 @@ export const Sidebar = styled.aside`
     border: none;
     font-weight: 700;
     font-size: 16px;
-    cursor: pointer;
   }
 `
 
@@ -71,32 +69,44 @@ export const CartItemContent = styled.div`
 
 export const Title = styled.h3`
   font-family: roboto;
-  font-size: 18px;
-  color: ${cores.rose};
-  font-weight: 900;
+  font-size: 16px;
+  color: ${cores.amarelo};
+  font-weight: 700;
   margin-bottom: 16px;
 `
 
-export const PriceItem = styled.p`
-  color: ${cores.rose};
-  font-size: 14px;
-  font-weight: 400;
-`
-
-export const TotalPriceContent = styled.div`
+export const InputGroup = styled.div`
   display: flex;
-  justify-content: space-between;
-  margin-top: 40px;
+  flex-direction: column;
 
-  h4 {
+  input {
+    height: 32px;
+    background-color: ${cores.amarelo};
+    border: none;
+    margin: 8px 0;
+  }
+
+  label {
+    color: ${cores.amarelo};
     font-weight: 700;
     font-size: 14px;
-    color: ${cores.amarelo};
   }
 `
+
+export const Row = styled.div`
+  display: block;
+`
+
 export const Text = styled.p`
-  text-align: center;
-  color: ${cores.branco};
-  font-size: 14px;
   font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: ${cores.amarelo};
+`
+
+export const Titulo = styled.h2`
+  font-weight: 700;
+  font-size: 16px;
+  color: ${cores.amarelo};
+  margin-bottom: 16px;
 `

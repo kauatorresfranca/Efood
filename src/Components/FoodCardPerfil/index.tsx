@@ -52,6 +52,7 @@ const FoodCardPerfil = ({
   const dispatch = useDispatch()
 
   const addToCart = () => {
+    CloseModal()
     // Converter id para número antes da comparação
     const itemToAdd = restaurant?.cardapio.find(
       (item) => item.id === Number(id)
