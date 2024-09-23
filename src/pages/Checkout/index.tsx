@@ -19,7 +19,7 @@ const Checkout = () => {
       address: '',
       City: '',
       CEP: '',
-      number: 1,
+      number: '',
       complement: '',
       //PAGAMENTO:
       nameCard: '',
@@ -89,7 +89,7 @@ const Checkout = () => {
             description: values.address,
             city: values.City,
             zipCode: values.CEP,
-            number: values.number,
+            number: Number(values.number),
             complement: values.complement
           }
         },
@@ -97,10 +97,10 @@ const Checkout = () => {
           card: {
             name: values.nameCard,
             number: values.numberCard,
-            code: values.CVV,
+            code: Number(values.CVV),
             expires: {
-              month: values.expiresMonth,
-              year: values.expiresYear
+              month: Number(values.expiresMonth),
+              year: Number(values.expiresYear)
             }
           }
         }

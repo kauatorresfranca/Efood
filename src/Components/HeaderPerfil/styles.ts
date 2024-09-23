@@ -54,8 +54,8 @@ export const Text = styled.div`
 
     img {
       object-fit: contain;
-      height: 24px;
-      width: 14px;
+      height: 10px;
+      width: 10px;
       max-width: 100%;
       max-height: 100%;
     }
