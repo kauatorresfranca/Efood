@@ -1,16 +1,23 @@
 import { useState } from 'react'
+import { clear } from '../../store/reducers/cart'
+import { Navigate } from 'react-router-dom'
 import Card from '../../Components/Card'
-import { InputGroup, Row, Title, Text, Titulo } from './styles'
-import { useSelector } from 'react-redux'
+import { InputGroup, Row, Title, Text, Titulo, Button } from './styles'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
 import { usePurchaseMutation } from '../../services/api'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
 
-const Checkout = () => {
+interface CheckoutProps {
+  onBackToCart: () => void // Definindo o tipo de onBackToCart
+}
+
+const Checkout = ({ onBackToCart }: CheckoutProps) => {
   const { items } = useSelector((state: RootReducer) => state.cart)
   const [payOn, setPayOn] = useState(false)
-  const [purchase, { isSuccess, data }] = usePurchaseMutation()
+  const [purchase, { isSuccess, data, isLoading }] = usePurchaseMutation()
+  const dispatch = useDispatch()
 
   const form = useFormik({
     initialValues: {
@@ -77,12 +84,10 @@ const Checkout = () => {
     }),
     onSubmit: (values) => {
       purchase({
-        products: [
-          {
-            id: 2,
-            price: 9
-          }
-        ],
+        products: items.map((item) => ({
+          id: item.id,
+          price: item.preco
+        })),
         delivery: {
           receiver: values.personDelivery,
           address: {
@@ -117,6 +122,10 @@ const Checkout = () => {
     return ''
   }
 
+  const purcheseSucess = () => {
+    dispatch(clear())
+  }
+
   const getTotalPrice = () => {
     return items.reduce((acumulador, valorAtual) => {
       return (acumulador += valorAtual.preco)
@@ -124,6 +133,10 @@ const Checkout = () => {
   }
 
   const precoTotal = getTotalPrice().toFixed(2)
+
+  if (items.length === 0 && !isSuccess) {
+    return <Navigate to="/" />
+  }
 
   return (
     <form onSubmit={form.handleSubmit}>
@@ -151,7 +164,7 @@ const Checkout = () => {
               Esperamos que desfrute de uma deliciosa e agradável experiência
               gastronômica. Bom apetite!
             </Text>
-            <button>Concluir</button>
+            <Button to="/">Concluir</Button>
           </>
         </Card>
       ) : !payOn ? (
@@ -238,10 +251,12 @@ const Checkout = () => {
                   {getErrorMessage('complement', form.errors.complement)}
                 </small>
               </InputGroup>
-              <button type="submit" onClick={() => setPayOn(true)}>
-                Continuar com o pagamento
+              <button type="button" onClick={() => setPayOn(true)}>
+                {isLoading ? 'Continuar com...' : 'Continuar com o pagagmento'}
               </button>
-              <button type="button">Voltar para o carrinho</button>
+              <button type="button" onClick={onBackToCart}>
+                Voltar para o carrinho
+              </button>
             </div>
           </>
         </Card>

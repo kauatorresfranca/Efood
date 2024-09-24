@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { cores } from '../../styles'
+import { Link } from 'react-router-dom'
 
 export const CartContainer = styled.div`
   position: fixed;
@@ -109,4 +110,33 @@ export const Titulo = styled.h2`
   font-size: 16px;
   color: ${cores.amarelo};
   margin-bottom: 16px;
+`
+
+export const Button = styled(Link)`
+  background-color: ${cores.amarelo};
+  color: ${cores.rose};
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16.41px;
+  text-align: center;
+  margin-top: 16px;
+  cursor: pointer;
+  padding: 4px 6px;
+  margin-left: 8px;
+  height: 24px;
+  width: 344px;
+`
+
+export const ButtonContainer = styled.button`
+  border: none;
+  background-color: ${cores.amarelo};
+  color: ${cores.rose};
+  width: 344px;
+  height: 100%;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: center;
+  cursor: pointer;
 `

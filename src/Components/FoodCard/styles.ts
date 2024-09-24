@@ -3,8 +3,9 @@ import { cores } from '../../styles'
 
 import { Link } from 'react-router-dom'
 
-export const Card = styled.div`
+export const Card = styled(Link)`
   margin: 0 auto;
+  text-decoration: none;
 `
 export const CardTop = styled.div`
   position: relative;

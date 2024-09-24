@@ -23,14 +23,17 @@ const Cart = () => {
 
   const [showCheckout, setShowCheckout] = useState(false)
 
+  // Função para fechar o carrinho
   const closeCart = () => {
     dispatch(close())
   }
 
+  // Função para remover item do carrinho
   const removeItem = (id: number) => {
     dispatch(remove(id))
   }
 
+  // Função para calcular o preço total dos itens
   const getTotalPrice = () => {
     return items.reduce((acumulador, valorAtual) => {
       return (acumulador += valorAtual.preco)
@@ -39,8 +42,14 @@ const Cart = () => {
 
   const precoTotal = getTotalPrice().toFixed(2)
 
+  // Função para voltar ao carrinho
+  const onBackToCart = () => {
+    setShowCheckout(false) // Atualiza o estado para mostrar o carrinho
+  }
+
   return showCheckout ? (
-    <Checkout />
+    // Passa a função onBackToCart para o componente Checkout
+    <Checkout onBackToCart={onBackToCart} />
   ) : (
     <CartContainer className={isOpen ? 'is-open' : ''}>
       <Overlay onClick={closeCart} />
