@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import { cores } from '../../styles'
-import { Link } from 'react-router-dom'
 
 export const CartContainer = styled.div`
   position: fixed;
@@ -80,6 +79,23 @@ export const InputGroup = styled.div`
   display: flex;
   flex-direction: column;
 
+  &.input-flex {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%;
+
+    div {
+      width: 155px;
+      max-width: 100%;
+    }
+  }
+
+  small {
+    color: ${cores.amarelo};
+    font-family: roboto;
+  }
+
   input {
     height: 32px;
     background-color: ${cores.amarelo};
@@ -112,31 +128,57 @@ export const Titulo = styled.h2`
   margin-bottom: 16px;
 `
 
-export const Button = styled(Link)`
+export const Button = styled.a`
   background-color: ${cores.amarelo};
   color: ${cores.rose};
   font-family: Roboto;
   font-size: 14px;
   font-weight: 700;
-  line-height: 16.41px;
   text-align: center;
   margin-top: 16px;
   cursor: pointer;
-  padding: 4px 6px;
-  margin-left: 8px;
   height: 24px;
   width: 344px;
 `
 
-export const ButtonContainer = styled.button`
-  border: none;
-  background-color: ${cores.amarelo};
-  color: ${cores.rose};
-  width: 344px;
-  height: 100%;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 16px;
-  text-align: center;
-  cursor: pointer;
+export const InputGroupPaymentFlex = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 360px;
+
+  .InputNumbCard,
+  .InputCvv {
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Garante que as divs se ajustem ao contêiner pai */
+  }
+
+  .InputNumbCard {
+    width: 228px;
+    margin: 8px 0;
+  }
+
+  input {
+    height: 32px;
+    background-color: ${cores.amarelo};
+    border: none;
+    margin: 8px 0;
+  }
+
+  .InputCvv {
+    width: 87px;
+    margin: 8px 0;
+  }
+
+  label {
+    color: ${cores.amarelo};
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  small {
+    color: ${cores.amarelo};
+    font-family: roboto;
+  }
 `

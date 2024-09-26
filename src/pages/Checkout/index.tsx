@@ -1,8 +1,15 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { clear } from '../../store/reducers/cart'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Card from '../../Components/Card'
-import { InputGroup, Row, Title, Text, Titulo, Button } from './styles'
+import {
+  InputGroup,
+  Row,
+  Title,
+  Text,
+  Titulo,
+  InputGroupPaymentFlex
+} from './styles'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
 import { usePurchaseMutation } from '../../services/api'
@@ -18,6 +25,7 @@ const Checkout = ({ onBackToCart }: CheckoutProps) => {
   const [payOn, setPayOn] = useState(false)
   const [purchase, { isSuccess, data, isLoading }] = usePurchaseMutation()
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const form = useFormik({
     initialValues: {
@@ -63,24 +71,31 @@ const Checkout = ({ onBackToCart }: CheckoutProps) => {
       //PAGAMENTO
       nameCard: yup
         .string()
-        .min(5, 'o nome precisa ter pelo menos 5 caracteres')
-        .required('o campo é obrigatório'),
+        .min(5, 'O nome precisa ter pelo menos 5 caracteres')
+        .when((values, schema) =>
+          payOn ? schema.required('O campo é obrigatorio') : schema
+        ),
       numberCard: yup
         .string()
-        .min(5, 'o nome precisa ter pelo menos 5 caracteres')
-        .required('o campo é obrigatório'),
+        .when((values, schema) =>
+          payOn ? schema.required('O campo é obrigatorio') : schema
+        ),
       CVV: yup
         .string()
-        .min(5, 'o nome precisa ter pelo menos 5 caracteres')
-        .required('o campo é obrigatório'),
+        .max(3, 'São permitidos até 3 dígitos')
+        .when((values, schema) =>
+          payOn ? schema.required('O campo é obrigatorio') : schema
+        ),
       expiresMonth: yup
         .string()
-        .min(5, 'o nome precisa ter pelo menos 5 caracteres')
-        .required('o campo é obrigatório'),
+        .when((values, schema) =>
+          payOn ? schema.required('O campo é obrigatorio') : schema
+        ),
       expiresYear: yup
         .string()
-        .min(5, 'o nome precisa ter pelo menos 5 caracteres')
-        .required('o campo é obrigatório')
+        .when((values, schema) =>
+          payOn ? schema.required('O campo é obrigatorio') : schema
+        )
     }),
     onSubmit: (values) => {
       purchase({
@@ -124,6 +139,7 @@ const Checkout = ({ onBackToCart }: CheckoutProps) => {
 
   const purcheseSucess = () => {
     dispatch(clear())
+    navigate('/')
   }
 
   const getTotalPrice = () => {
@@ -134,9 +150,11 @@ const Checkout = ({ onBackToCart }: CheckoutProps) => {
 
   const precoTotal = getTotalPrice().toFixed(2)
 
-  if (items.length === 0 && !isSuccess) {
-    return <Navigate to="/" />
-  }
+  useEffect(() => {
+    if (items.length === 0 && !isSuccess) {
+      navigate('/')
+    }
+  }, [items, isSuccess, navigate])
 
   return (
     <form onSubmit={form.handleSubmit}>
@@ -164,7 +182,9 @@ const Checkout = ({ onBackToCart }: CheckoutProps) => {
               Esperamos que desfrute de uma deliciosa e agradável experiência
               gastronômica. Bom apetite!
             </Text>
-            <Button to="/">Concluir</Button>
+            <button type="button" onClick={purcheseSucess}>
+              Concluir
+            </button>
           </>
         </Card>
       ) : !payOn ? (
@@ -213,29 +233,31 @@ const Checkout = ({ onBackToCart }: CheckoutProps) => {
                 />
                 <small>{getErrorMessage('City', form.errors.City)}</small>
               </InputGroup>
-              <InputGroup>
-                <label htmlFor="CEP">CEP</label>
-                <input
-                  id="CEP"
-                  type="text"
-                  name="CEP"
-                  value={form.values.CEP}
-                  onChange={form.handleChange}
-                  onBlur={form.handleBlur}
-                />
-                <small>{getErrorMessage('CEP', form.errors.CEP)}</small>
-              </InputGroup>
-              <InputGroup>
-                <label htmlFor="number">Número</label>
-                <input
-                  id="number"
-                  type="text"
-                  name="number"
-                  value={form.values.number}
-                  onChange={form.handleChange}
-                  onBlur={form.handleBlur}
-                />
-                <small>{getErrorMessage('number', form.errors.number)}</small>
+              <InputGroup className="input-flex">
+                <div>
+                  <label htmlFor="CEP">CEP</label>
+                  <input
+                    id="CEP"
+                    type="text"
+                    name="CEP"
+                    value={form.values.CEP}
+                    onChange={form.handleChange}
+                    onBlur={form.handleBlur}
+                  />
+                  <small>{getErrorMessage('CEP', form.errors.CEP)}</small>
+                </div>
+                <div>
+                  <label htmlFor="number">Número</label>
+                  <input
+                    id="number"
+                    type="text"
+                    name="number"
+                    value={form.values.number}
+                    onChange={form.handleChange}
+                    onBlur={form.handleBlur}
+                  />
+                  <small>{getErrorMessage('number', form.errors.number)}</small>
+                </div>
               </InputGroup>
               <InputGroup>
                 <label htmlFor="complement">Complemento (opcional)</label>
@@ -281,61 +303,65 @@ const Checkout = ({ onBackToCart }: CheckoutProps) => {
               </InputGroup>
             </Row>
             <Row>
-              <InputGroup>
-                <label htmlFor="numberCard">Número no cartão</label>
-                <input
-                  id="numberCard"
-                  type="text"
-                  name="numberCard"
-                  value={form.values.numberCard}
-                  onChange={form.handleChange}
-                  onBlur={form.handleBlur}
-                />
-                <small>
-                  {getErrorMessage('numberCard', form.errors.numberCard)}
-                </small>
-              </InputGroup>
-              <InputGroup>
-                <label htmlFor="CVV">CVV</label>
-                <input
-                  id="CVV"
-                  type="text"
-                  name="CVV"
-                  value={form.values.CVV}
-                  onChange={form.handleChange}
-                  onBlur={form.handleBlur}
-                />
-                <small>{getErrorMessage('CVV', form.errors.CVV)}</small>
-              </InputGroup>
+              <InputGroupPaymentFlex>
+                <div className="InputNumbCard">
+                  <label htmlFor="numberCard">Número no cartão</label>
+                  <input
+                    id="numberCard"
+                    type="text"
+                    name="numberCard"
+                    value={form.values.numberCard}
+                    onChange={form.handleChange}
+                    onBlur={form.handleBlur}
+                  />
+                  <small>
+                    {getErrorMessage('numberCard', form.errors.numberCard)}
+                  </small>
+                </div>
+                <div className="InputCvv">
+                  <label htmlFor="CVV">CVV</label>
+                  <input
+                    id="CVV"
+                    type="text"
+                    name="CVV"
+                    value={form.values.CVV}
+                    onChange={form.handleChange}
+                    onBlur={form.handleBlur}
+                  />
+                  <small>{getErrorMessage('CVV', form.errors.CVV)}</small>
+                </div>
+              </InputGroupPaymentFlex>
             </Row>
             <Row>
-              <InputGroup>
-                <label htmlFor="expiresMonth">Mês de vencimento</label>
-                <input
-                  id="expiresMonth"
-                  type="text"
-                  name="expiresMonth"
-                  value={form.values.expiresMonth}
-                  onChange={form.handleChange}
-                  onBlur={form.handleBlur}
-                />
-                <small>
-                  {getErrorMessage('expiresMonth', form.errors.personDelivery)}
-                </small>
-              </InputGroup>
-              <InputGroup>
-                <label htmlFor="expiresYear">Ano de vencimento</label>
-                <input
-                  id="expiresYear"
-                  type="text"
-                  name="expiresYear"
-                  value={form.values.expiresYear}
-                  onChange={form.handleChange}
-                  onBlur={form.handleBlur}
-                />
-                <small>
-                  {getErrorMessage('expiresYear', form.errors.personDelivery)}
-                </small>
+              <InputGroup className="input-flex">
+                <div>
+                  <label htmlFor="expiresMonth">Mês de vencimento</label>
+                  <input
+                    id="expiresMonth"
+                    type="text"
+                    name="expiresMonth"
+                    value={form.values.expiresMonth}
+                    onChange={form.handleChange}
+                    onBlur={form.handleBlur}
+                  />
+                  <small>
+                    {getErrorMessage('expiresMonth', form.errors.expiresMonth)}
+                  </small>
+                </div>
+                <div>
+                  <label htmlFor="expiresYear">Ano de vencimento</label>
+                  <input
+                    id="expiresYear"
+                    type="text"
+                    name="expiresYear"
+                    value={form.values.expiresYear}
+                    onChange={form.handleChange}
+                    onBlur={form.handleBlur}
+                  />
+                  <small>
+                    {getErrorMessage('expiresYear', form.errors.expiresYear)}
+                  </small>
+                </div>
               </InputGroup>
             </Row>
             <button type="submit">Finalizar pagamento</button>
