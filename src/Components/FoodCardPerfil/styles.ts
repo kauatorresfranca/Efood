@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { cores } from '../../styles'
+import { breakpoints, cores } from '../../styles'
 
 export const Card = styled.div`
   background-color: ${cores.rose};
@@ -83,6 +83,19 @@ export const Modal = styled.div`
     width: 100%;
     height: 344px;
 
+    @media (max-width: ${breakpoints.tablet}) {
+      position: relative;
+      width: 80%;
+      flex-direction: column;
+      height: 620px;
+
+      .close {
+        position: absolute;
+        top: 8px;
+        right: 6px;
+      }
+    }
+
     > img {
       width: 280px;
       height: 280px;
@@ -106,6 +119,11 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  @media (max-width: ${breakpoints.tablet}) {
+    justify-content: center;
+    margin-left: 8px;
+  }
 `
 
 export const TitleModal = styled.h3`

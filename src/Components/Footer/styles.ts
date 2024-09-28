@@ -13,7 +13,7 @@ export const Flag = styled.li`
 export const Container = styled.div`
   background-color: ${cores.amarelo};
   height: 298px;
-  margin-top: 120px;
+  margin-top: 80px;
   padding-top: 40px;
 
   .container {

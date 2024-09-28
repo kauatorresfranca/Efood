@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { clear } from '../../store/reducers/cart'
+import { clear, close } from '../../store/reducers/cart'
 import { useNavigate } from 'react-router-dom'
 import Card from '../../Components/Card'
 import {
@@ -138,6 +138,7 @@ const Checkout = ({ onBackToCart }: CheckoutProps) => {
   }
 
   const purcheseSucess = () => {
+    dispatch(close())
     dispatch(clear())
     navigate('/')
   }

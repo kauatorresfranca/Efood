@@ -89,7 +89,12 @@ const FoodCardPerfil = ({
             </S.LinkModal>
           </S.Content>
           <div>
-            <S.Close src={close} alt="sair" onClick={() => CloseModal()} />
+            <S.Close
+              className="close"
+              src={close}
+              alt="sair"
+              onClick={() => CloseModal()}
+            />
           </div>
         </div>
         <div

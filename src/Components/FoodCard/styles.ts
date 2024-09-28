@@ -1,13 +1,21 @@
 import styled from 'styled-components'
-import { cores } from '../../styles'
+import { breakpoints, cores } from '../../styles'
 
 import { Link } from 'react-router-dom'
 
 export const Card = styled(Link)`
   margin: 0 auto;
   text-decoration: none;
+
+  @media (max-width: ${breakpoints.tablet}) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `
 export const CardTop = styled.div`
+  width: 472px;
   position: relative;
   height: 217px;
 

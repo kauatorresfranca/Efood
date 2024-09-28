@@ -7,8 +7,15 @@ export const Container = styled.div`
   gap: 32px;
   padding-top: 60px;
 
+  @media (max-width: ${breakpoints.desktop}) {
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+  }
+
   @media (max-width: ${breakpoints.tablet}) {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     margin: 0 auto;
     align-items: center;
     justify-content: center;
