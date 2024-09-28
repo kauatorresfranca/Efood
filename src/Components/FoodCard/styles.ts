@@ -12,12 +12,17 @@ export const Card = styled(Link)`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 80%;
   }
 `
 export const CardTop = styled.div`
   width: 472px;
   position: relative;
   height: 217px;
+
+  @media (max-width: ${breakpoints.tablet}) {
+    width: 99%;
+  }
 
   img {
     height: 217px;
@@ -30,6 +35,11 @@ export const CardBottom = styled.div`
   height: 200px;
   border: 1px solid ${cores.rose};
   padding-left: 8px;
+
+  @media (max-width: ${breakpoints.tablet}) {
+    width: 99%;
+    height: 225px;
+  }
 `
 
 export const Title = styled.h3`

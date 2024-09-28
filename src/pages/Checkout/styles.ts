@@ -86,6 +86,7 @@ export const InputGroup = styled.div`
     max-width: 100%;
 
     div {
+      flex-direction: column;
       width: 155px;
       max-width: 100%;
     }
