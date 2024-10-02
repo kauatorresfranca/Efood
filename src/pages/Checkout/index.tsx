@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { clear, close } from '../../store/reducers/cart'
 import { useNavigate } from 'react-router-dom'
 import Card from '../../Components/Card'
+import InputMask from 'react-input-mask'
 import {
   InputGroup,
   Row,
@@ -59,11 +60,14 @@ const Checkout = ({ onBackToCart }: CheckoutProps) => {
         .required('o campo é obrigatório'),
       CEP: yup
         .string()
-        .min(5, 'o nome precisa ter pelo menos 5 caracteres')
+        .matches(/^\d+$/, 'O campo  deve conter apenas números') // Garante que só números serão aceitos
+        .max(9, 'o cep deve ter no máximo 9 caracteres')
         .required('o campo é obrigatório'),
       number: yup
         .string()
-        .min(5, 'o nome precisa ter pelo menos 5 caracteres')
+        .matches(/^\d+$/, 'O campo numero deve conter apenas números') // Garante que só números serão aceitos
+        .min(1, 'o nome precisa ter pelo menos 1 caracteres')
+        .max(10, 'o nome precisa ter no máximo 10 caracteres')
         .required('o campo é obrigatório'),
       complement: yup
         .string()
@@ -77,12 +81,16 @@ const Checkout = ({ onBackToCart }: CheckoutProps) => {
         ),
       numberCard: yup
         .string()
+        .matches(/^\d+$/, 'O campo deve conter apenas números') // Garante que só números serão aceitos
+        .max(19, 'deve ter no máximo 19')
         .when((values, schema) =>
           payOn ? schema.required('O campo é obrigatorio') : schema
         ),
       CVV: yup
         .string()
-        .max(3, 'São permitidos até 3 dígitos')
+        .matches(/^\d+$/, 'O campo  deve conter apenas números') // Garante que só números serão aceitos
+        .min(3, 'minimo de 3 digitos')
+        .max(4, 'São permitidos até 4 dígitos')
         .when((values, schema) =>
           payOn ? schema.required('O campo é obrigatorio') : schema
         ),
